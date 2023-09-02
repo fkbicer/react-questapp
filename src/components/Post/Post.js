@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import './Post.scss';
 import { styled } from '@mui/material/styles';
-import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -30,7 +29,6 @@ const ExpandMore = styled((props) => {
 
 function Post(props) { 
     const {text,title} = props;
-    const classes = makeStyles();
     const [expanded, setExpanded] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
