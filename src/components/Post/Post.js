@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import './Post.scss';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -34,7 +33,7 @@ function Post(props) {
         setExpanded(!expanded);
 }
     return (
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ width : 800 }}>
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
