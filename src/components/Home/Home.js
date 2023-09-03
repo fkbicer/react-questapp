@@ -58,7 +58,7 @@ function Home() {
                   <Box >
                 <div className = {classes.container}>
                 {postList.map(post => (
-                    <Post title={post.title} text = {post.text}></Post>    
+                    <Post userId ={post.userId} userName={post.userName} title={post.title} text = {post.text}></Post>    
              ))}</div>   
                   </Box>
                  
