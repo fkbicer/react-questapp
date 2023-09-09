@@ -42,7 +42,7 @@ const ExpandMore = styled((props) => {
   }));
 
 function PostForm(props) { 
-    const {userName,userId} = props;
+    const {userName,userId, refreshPosts} = props;
     const classes = useStyles();
     const [text, SetText] = useState("");
     const [title, SetTitle] = useState("");
@@ -64,6 +64,7 @@ function PostForm(props) {
 
     const handleSubmit = () => {
         savePost();
+        refreshPosts();
     }
 
     const handleTitle = (value) => {

@@ -29,9 +29,8 @@ function Home() {
     const [postList, setPostList] = useState([]);
     const classes = useStyles();
 
-    useEffect(
-        () => {
-            fetch("/posts")
+    const refreshPosts = () => {
+        fetch("/posts")
             .then(res => res.json())
             .then(
                 (result) => {
@@ -43,7 +42,14 @@ function Home() {
                     setError(error);
                 }
             )
-        }, [] )
+    }
+
+    useEffect(
+        () => {
+            refreshPosts()
+        }, [postList] )
+
+
         if(error) {
             return <div> Error !! </div>
         }else if (!isLoaded) {
@@ -58,7 +64,7 @@ function Home() {
 
                   <Box >
                 <div className = {classes.container}>
-                <PostForm userId ={1} userName={"f-test"} title={"title-test"} text = {"text-test"}></PostForm> 
+                <PostForm userId ={1} userName={"f-test"} refreshPosts = {refreshPosts} ></PostForm> 
                 {postList.map(post => (
                     <Post userId ={post.userId} userName={post.userName} title={post.title} text = {post.text}></Post>    
              ))}</div>   
