@@ -46,6 +46,7 @@ function PostForm(props) {
     const classes = useStyles();
     const [text, SetText] = useState("");
     const [title, SetTitle] = useState("");
+    const [isSent, setIsSent] = useState(false);
 
     const savePost = () => {
         fetch("/posts",
@@ -64,16 +65,21 @@ function PostForm(props) {
 
     const handleSubmit = () => {
         savePost();
+        setIsSent(true);
+        SetTitle("");
+        SetText("");
         refreshPosts();
     }
 
     const handleTitle = (value) => {
         SetTitle(value);
+        setIsSent(false);
     }
 
     
     const handleText = (value) => {
         SetText(value);
+        setIsSent(false);
     }
 
     
@@ -98,6 +104,7 @@ function PostForm(props) {
           placeholder= "Title"
           inputProps={{maxLength :25}}
           fullWidth
+          value = {title}
           onChange={ (i) => handleTitle(i.target.value)}
           >
 
@@ -111,6 +118,7 @@ function PostForm(props) {
           placeholder= "Text"
           inputProps={{maxLength :250}}
           fullWidth
+          value = {text}
           onChange={ (i) => handleText(i.target.value)}
           endAdornment = {
             <InputAdornment position = "end">
