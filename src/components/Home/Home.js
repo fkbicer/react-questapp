@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import PostForm from "../Post/PostForm";
 
 
 
@@ -57,6 +58,7 @@ function Home() {
 
                   <Box >
                 <div className = {classes.container}>
+                <PostForm userId ={1} userName={"f-test"} title={"title-test"} text = {"text-test"}></PostForm> 
                 {postList.map(post => (
                     <Post userId ={post.userId} userName={post.userName} title={post.title} text = {post.text}></Post>    
              ))}</div>   
