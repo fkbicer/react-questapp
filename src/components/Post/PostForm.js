@@ -15,8 +15,14 @@ import { makeStyles } from '@mui/styles';
 import CommentIcon from '@mui/icons-material/Comment';
 import {Link} from "react-router-dom"
 import { InputAdornment, OutlinedInput } from "@mui/material";
-import { Button } from "@mui/material";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 const useStyles = makeStyles((theme) => ({
   root: {
       width: 800,
@@ -82,13 +88,28 @@ function PostForm(props) {
         setIsSent(false);
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setIsSent(false);
+    }
+
     
  
 
 
 
     return (
-      <Card className={classes.root}>
+        <div>
+        <Snackbar open={isSent} autoHideDuration={1200} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            This is a success message!
+        </Alert>
+        </Snackbar>
+
+        <Card className={classes.root}>
         <CardHeader
           avatar={
             <Link className={classes.link} to={{pathname : '/users/' + userId}}>
@@ -135,6 +156,9 @@ function PostForm(props) {
           </Typography>
         </CardContent>
       </Card>
+
+        </div>
+     
     );
   }
 
