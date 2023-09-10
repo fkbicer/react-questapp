@@ -126,7 +126,7 @@ function Post(props) {
             isLoaded? commentList.map(comment => (
               <Comment userId = {1} userName={"USER"} text = {comment.text}></Comment>
             )) : "Loading" }
-          <CommentForm userId = {1} userName={"USER"} text = {"asd"}></CommentForm>
+          <CommentForm userId = {1} userName={"USER"} postId= {postId}></CommentForm>
           </Container>
         </Collapse>
       </Card>
