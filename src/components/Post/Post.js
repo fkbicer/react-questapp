@@ -43,7 +43,7 @@ const ExpandMore = styled((props) => {
   }));
 
 function Post(props) { 
-    const {text,title,userName,userId, postId} = props;
+    const {text,title,userName,userId, postId, likes} = props;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
     const [liked, setLiked] = useState(false);
@@ -51,6 +51,7 @@ function Post(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [commentList, setCommentList] = useState([]);
     const isInitialMount = useRef(true);
+    const likeCount = likes.length;
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -110,6 +111,7 @@ function Post(props) {
         <CardActions disableSpacing>
           <IconButton onClick={handleLike} aria-label="add to favorites">
             <FavoriteIcon style={liked? {color :'red'} : null} />
+            {likeCount}
           </IconButton>
           <ExpandMore
             expand={expanded}
