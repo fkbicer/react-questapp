@@ -46,20 +46,30 @@ function Post(props) {
     const {text,title,userName,userId, postId, likes} = props;
     const classes = useStyles();
     const [expanded, setExpanded] = useState(false);
-    const [liked, setLiked] = useState(false);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [commentList, setCommentList] = useState([]);
     const isInitialMount = useRef(true);
-    const likeCount = likes.length;
-
+    const [isLiked, setIsLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(likes.length);
+    const [likeId, setLikeId] = useState(null);
     const handleExpandClick = () => {
         setExpanded(!expanded);
         refreshComment();
         console.log(commentList);
       }
     const handleLike = () => {
-      setLiked(!liked);
+      setIsLiked(!isLiked);
+      if(!isLiked){
+        saveLike();
+        setLikeCount(likeCount + 1)
+      }
+       
+      else{
+        deleteLike();
+        setLikeCount(likeCount - 1)
+      }
+       
     }
 
     
@@ -79,6 +89,30 @@ function Post(props) {
           )
   }
 
+  const saveLike = () => {
+    fetch("/likes",
+    {
+        method: "POST",
+        headers: {"Content-Type" : "application/json",},
+        body : JSON.stringify({
+            userId: userId,
+            postId: postId
+        }),
+    })
+    .then((res) => res.json())
+    .catch((err) => console.log("error"))
+}
+
+const deleteLike = () => {
+  var likeId = likes.find((like => like.userId === userId)).id;
+  fetch("/likes/" + likeId , {
+    method : "DELETE",
+  })
+  .catch((err) => console.log("error"))
+}
+
+
+
   useEffect(
     () => {
       if(isInitialMount.current)
@@ -87,7 +121,15 @@ function Post(props) {
         refreshComment();
     }, [commentList] )
 
-
+  const checkLikes = () => {
+    var likeControl = likes.find((like => like.userId === userId));
+    if(likeControl != null){
+      setLikeId(likeControl.id);
+      setIsLiked(true);
+    }
+      
+  }
+  useEffect(() => {checkLikes()},[])
 
 
     return (
@@ -110,9 +152,9 @@ function Post(props) {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton onClick={handleLike} aria-label="add to favorites">
-            <FavoriteIcon style={liked? {color :'red'} : null} />
-            {likeCount}
+            <FavoriteIcon style={isLiked? {color :'red'} : null} />
           </IconButton>
+          {likeCount}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
