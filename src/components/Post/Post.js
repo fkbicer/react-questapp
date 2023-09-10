@@ -16,6 +16,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import {Link} from "react-router-dom"
 import { Container } from "@mui/material";
 import Comment from "../Comment/Comment";
+import CommentForm from "../Comment/CommentForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -125,6 +126,7 @@ function Post(props) {
             isLoaded? commentList.map(comment => (
               <Comment userId = {1} userName={"USER"} text = {comment.text}></Comment>
             )) : "Loading" }
+          <CommentForm userId = {1} userName={"USER"} text = {"asd"}></CommentForm>
           </Container>
         </Collapse>
       </Card>
