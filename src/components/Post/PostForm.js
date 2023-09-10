@@ -103,9 +103,9 @@ function PostForm(props) {
 
     return (
         <div>
-        <Snackbar open={isSent} autoHideDuration={1200} onClose={handleClose}>
+        <Snackbar open={isSent} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            This is a success message!
+            Your post is sent!
         </Alert>
         </Snackbar>
 
