@@ -16,17 +16,11 @@ function Auth() {
         setPassword(value);
     }
 
-    const handleRegister = () => {
-        sendRequest("register")
+    const handleButton = (path) => {
+        sendRequest(path)
         setUsername("")
         setPassword("")
         navigate("/auth")
-    }
-
-    const handleLogin = () => {
-        sendRequest("login")
-        setUsername("")
-        setPassword("")
     }
 
     const sendRequest  = (path) => {
@@ -57,13 +51,13 @@ function Auth() {
             <Input onChange={(i) => handelPassword(i.target.value)} style={{top: 40}}/>
             <Button variant ='contained' 
             style={{marginTop : 60}}
-            onClick ={handleRegister}
+            onClick ={() => handleButton("register")}
             >Register</Button>
             <FormHelperText style={{marginTop : 10}}>Are you already registered?</FormHelperText>
             <Button variant ='contained' 
             style={{marginTop : 10}}
-            onClick ={handleLogin}>Login</Button>
-                
+            onClick ={() => handleButton("login")}>Login</Button>
+
             </FormControl>
             
         </div>
