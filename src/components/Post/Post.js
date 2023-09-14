@@ -94,7 +94,8 @@ function Post(props) {
     fetch("/likes",
     {
         method: "POST",
-        headers: {"Content-Type" : "application/json",},
+        headers: {"Content-Type" : "application/json",
+                  "Authorization" : localStorage.getItem("tokenKey")},
         body : JSON.stringify({
             userId: localStorage.getItem("currentUser"),
             postId: postId
@@ -108,6 +109,7 @@ const deleteLike = () => {
   var likeId = likes.find((like => like.userId === userId)).id;
   fetch("/likes/" + likeId , {
     method : "DELETE",
+    headers: {"Authorization" : localStorage.getItem("tokenKey")}
   })
   .catch((err) => console.log("error"))
 }
@@ -123,7 +125,7 @@ const deleteLike = () => {
     }, [commentList] )
 
   const checkLikes = () => {
-    var likeControl = likes.find((like => like.userId === userId));
+    var likeControl = likes.find((like => ""+like.userId === localStorage.getItem("currentUser")));
     if(likeControl != null){
       setLikeId(likeControl.id);
       setIsLiked(true);
@@ -152,11 +154,14 @@ const deleteLike = () => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton 
+          {disabled ? <IconButton 
           disabled
           onClick={handleLike} aria-label="add to favorites">
             <FavoriteIcon style={isLiked? {color :'red'} : null} />
-          </IconButton>
+          </IconButton> : <IconButton 
+          onClick={handleLike} aria-label="add to favorites">
+            <FavoriteIcon style={isLiked? {color :'red'} : null} />
+          </IconButton> }
           {likeCount}
           <ExpandMore
             expand={expanded}
