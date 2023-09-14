@@ -1,7 +1,7 @@
 
 import './App.css';
 
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Redirect, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import User from './components/User/User';
@@ -15,9 +15,10 @@ function App() {
      <Navbar></Navbar>
         <Routes>
           <Route path='/' element={<Home/>} />
-          <Route  path = "/users/:userId" element = {<User/>} />
-          <Route path ='/auth' element =  {localStorage.getItem("currentUser") != null ? <Navigate to="/"/> :<Auth/>} />
-        </Routes>
+          <Route path ="/users/:userId" element = {<User/>} />
+          <Route exact path="/auth" element = {localStorage.getItem("currentUser") != null ? <Navigate to ="/"/>: <Auth/>}>
+          </Route>
+        </Routes> 
       </BrowserRouter>
     </div>
   );

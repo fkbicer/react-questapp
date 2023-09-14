@@ -6,7 +6,7 @@ function Auth() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     const handleUsername = (value) => {
         setUsername(value);
@@ -17,10 +17,11 @@ function Auth() {
     }
 
     const handleButton = (path) => {
-        sendRequest(path)
-        setUsername("")
-        setPassword("")
-        navigate("/auth")
+        sendRequest(path);
+        setUsername("");
+        setPassword("");
+        navigate(0);
+       
     }
 
     const sendRequest  = (path) => {
@@ -34,7 +35,7 @@ function Auth() {
             }),
         })
         .then((res) => res.json())
-        .then((result) =>{localStorage.setItem("tokenKey", result.message);
+        .then((result) =>{localStorage.setItem("tokenKey", result.accessToken);
                          localStorage.setItem("currentUser", result.userId);
                          localStorage.setItem("userName", username);})
         .catch((err) => console.log("error"))
@@ -51,8 +52,7 @@ function Auth() {
             <Input onChange={(i) => handelPassword(i.target.value)} style={{top: 40}}/>
             <Button variant ='contained' 
             style={{marginTop : 60}}
-            onClick ={() => handleButton("register")}
-            >Register</Button>
+            onClick ={() => handleButton("register")}>Register</Button>
             <FormHelperText style={{marginTop : 10}}>Are you already registered?</FormHelperText>
             <Button variant ='contained' 
             style={{marginTop : 10}}

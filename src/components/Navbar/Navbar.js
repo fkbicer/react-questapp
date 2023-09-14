@@ -45,8 +45,7 @@ function Navbar() {
       localStorage.removeItem("tokenKey");
       localStorage.removeItem("currentUser");
       localStorage.removeItem("userName");
-      navigate(0);
-      
+      window.location.reload(true)
     }
         return (
             <div>

@@ -53,6 +53,7 @@ function Post(props) {
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likes.length);
     const [likeId, setLikeId] = useState(null);
+    let disabled = localStorage.getItem("currentUser") == null ? true : false;
     const handleExpandClick = () => {
         setExpanded(!expanded);
         refreshComment();
@@ -95,7 +96,7 @@ function Post(props) {
         method: "POST",
         headers: {"Content-Type" : "application/json",},
         body : JSON.stringify({
-            userId: userId,
+            userId: localStorage.getItem("currentUser"),
             postId: postId
         }),
     })
@@ -151,7 +152,9 @@ const deleteLike = () => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton onClick={handleLike} aria-label="add to favorites">
+          <IconButton 
+          disabled
+          onClick={handleLike} aria-label="add to favorites">
             <FavoriteIcon style={isLiked? {color :'red'} : null} />
           </IconButton>
           {likeCount}
@@ -170,7 +173,8 @@ const deleteLike = () => {
             isLoaded? commentList.map(comment => (
               <Comment userId = {1} userName={"USER"} text = {comment.text}></Comment>
             )) : "Loading" }
-          <CommentForm userId = {1} userName={"USER"} postId= {postId}></CommentForm>
+            {disabled ? "" : <CommentForm userId = {1} userName={"USER"} postId= {postId}></CommentForm> }
+          
           </Container>
         </Collapse>
       </Card>
