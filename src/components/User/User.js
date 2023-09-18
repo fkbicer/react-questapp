@@ -8,7 +8,7 @@ function User() {
     return (
         <div>
             User!!! {userId}
-            <Avatar></Avatar>
+            <Avatar avatarId = {1}/>
         </div>
     )
 

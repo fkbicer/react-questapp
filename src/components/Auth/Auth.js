@@ -20,7 +20,6 @@ function Auth() {
         sendRequest(path);
         setUsername("");
         setPassword("");
-        navigate(0);
        
     }
 

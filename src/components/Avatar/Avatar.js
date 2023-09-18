@@ -22,12 +22,14 @@ const style = {
     p: 4,
   };
 
-function Avatar() {
+function Avatar(props) {
+    const {avatarId} = props;
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [selectedValue, setSelectedValue] = React.useState(0);
+    const [selectedValue, setSelectedValue] = React.useState(avatarId);
     const [checked, setChecked] = React.useState([1]);
+   
 
     const handleChange = (event) => {
         setSelectedValue(event.target.value)
