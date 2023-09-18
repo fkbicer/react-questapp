@@ -26,7 +26,7 @@ function Avatar() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const [selectedValue, setSelectedValue] = React.useState(1);
+    const [selectedValue, setSelectedValue] = React.useState(0);
     const [checked, setChecked] = React.useState([1]);
 
     const handleChange = (event) => {
@@ -53,7 +53,7 @@ function Avatar() {
         sx={{ height: 400 }}
         componenet = "img"
         alt = "User Avatar"
-        image="/avatars/1.png"
+        image={`/avatars/${selectedValue}.png`}
         title="User Avatar"
       />
       <CardContent>
@@ -68,7 +68,6 @@ function Avatar() {
         <Button size="small" color ="primary" onClick={handleOpen}>Change Avatar</Button>
       </CardActions>
     </Card>
-    <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open}
         onClose={handleClose}
